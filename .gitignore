@@ -108,3 +108,4 @@ cache
 output
 data
 checkpoint
+*.npy
