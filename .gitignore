@@ -108,4 +108,4 @@ cache
 output
 data
 checkpoint
-*.npy
+eval_cache
