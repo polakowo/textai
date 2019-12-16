@@ -7,6 +7,8 @@ import uvicorn
 import os
 import sys
 import logging
+import gc
+from random import uniform
 import run_generation
 
 logger = logging.getLogger()
@@ -33,8 +35,8 @@ def generate_text(params):
         '--model_type=gpt2',
         '--model_name_or_path=app/output',
         f"--prompt={prompt}" if prompt else '--prompt=""',
-        f'--temperature={float(params["temp"])}',
-        f'--top_p={float(params["top_p"])}',
+        f'--temperature={float(params["temp"]) if params["temp"] else uniform(0.7, 1)}',
+        f'--top_p={float(params["top_p"]) if params["top_p"] else 0}',
         '--num_samples=1',
         '--length=256',
         f'--stop_token={EOS_TOKEN}'
@@ -69,6 +71,7 @@ async def generate(request):
     elif request.method == 'HEAD':
         return JSONResponse({'text': ''}, headers=response_header)
     logging.info(params)
+    gc.collect()
     return JSONResponse(parse_text(generate_text(params)), headers=response_header)
 
 async def homepage(request):
