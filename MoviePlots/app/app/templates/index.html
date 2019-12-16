@@ -93,7 +93,6 @@
                             <label class="label">Genre</label>
                             <div class="select">
                                 <select id="genre">
-                                    <option value="">(Let the AI decide)</option>
                                     <option value="action">Action</option>
                                     <option value="adult">Adult</option>
                                     <option value="adventure">Adventure</option>
@@ -114,7 +113,7 @@
                                     <option value="news">News</option>
                                     <option value="reality-tv">Reality-TV</option>
                                     <option value="romance">Romance</option>
-                                    <option value="sci-fi">Sci-Fi</option>
+                                    <option value="sci-fi" selected>Sci-Fi</option>
                                     <option value="short">Short</option>
                                     <option value="sport">Sport</option>
                                     <option value="talk-show">Talk-Show</option>
@@ -124,14 +123,6 @@
                                 </select>
                             </div>
                             <p class="help">Genre of the generated plot. <em>(Optional)</em></p>
-                        </div>
-                        <div class="field">
-                            <label class="label">Title</label>
-                            <div class="control">
-                                <textarea id="title" class="textarea" type="text" placeholder="Title"
-                                    rows="2"></textarea>
-                            </div>
-                            <p class="help">Movie title of the generated plot. <em>(Optional)</em></p>
                         </div>
                         <div class="field">
                             <label class="label">Text Prompt</label>
@@ -206,15 +197,7 @@
                     $('#model-output').text('');
 
                     var html = '<div class=\"gen-box\">';
-                    if (data.hasOwnProperty('title')) {
-                        html += `<p class="subtitle"><em><strong>${data.title}</strong></em></p>`;
-                    }
-                    if (data.hasOwnProperty('genre')) {
-                        html += `<p class="subtitle"><em>${data.genre}</em></p>`;
-                    }
-                    if (data.hasOwnProperty('plot')) {
-                        html += `<p class="subtitle"><em>${data.plot}</em></p>`;
-                    }
+                    html += `<p class="subtitle"><em>${data.plot}</em></p>`;
                     html += '</div><div class="gen-border"></div>';
                     $(html).appendTo('#model-output').hide().fadeIn("slow");
                 },

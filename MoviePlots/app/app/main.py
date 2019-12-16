@@ -17,20 +17,17 @@ response_header = {
     'Access-Control-Allow-Origin': '*'
 }
 
+BOS_TOKEN = '<|startoftext|>'
 EOG_TOKEN = '<|endofgenre|>'
-EOT_TOKEN = '<|endoftitle|>'
 EOS_TOKEN = '<|endoftext|>'
 
 def generate_text(params):
     """Generate text using transformers."""
     prompt = ''
-    if not params['genre'] and not params['title'] and not params['prefix']:
-        prompt += EOS_TOKEN
     if params['genre']:
-        prompt += params['genre'] + EOG_TOKEN
-    if params['title']:
-        prompt += params['title'] + EOT_TOKEN
+        prompt += BOS_TOKEN + params['genre'] + EOG_TOKEN
     if params['prefix']:
+        # If user specifies prefix, the model cannot generate the genre anymore
         prompt += params['prefix']
     text = run_generation.main([
         '--model_type=gpt2',
@@ -46,26 +43,20 @@ def generate_text(params):
 
 def parse_text(text):
     """Parse text."""
-    logging.info(text)
-    if len(text.split(EOS_TOKEN)[0]) > 0:
-        main = text.split(EOS_TOKEN)[0]
-    else:
-        # eos_token can be at the beginning
-        main = text.split(EOS_TOKEN)[1]
-    if EOG_TOKEN in main:
-        genre = main.split(EOG_TOKEN)[0]
-        main = main.split(EOG_TOKEN)[1]
+    if BOS_TOKEN in text:
+        if text.index(BOS_TOKEN) == 0:
+            text = text.split(BOS_TOKEN)[1]
+    if EOS_TOKEN in text:
+        text = text.split(EOS_TOKEN)[0]
+    if EOG_TOKEN in text:
+        genre = text.split(EOG_TOKEN)[0]
+        text = text.split(EOG_TOKEN)[1]
     else:
         genre = ''
-    if EOT_TOKEN in main:
-        title = main.split(EOT_TOKEN)[-2]
-        main = main.split(EOT_TOKEN)[-1]
-    else:
-        title = ''
-    plot = '.'.join(main.split('.')[:-1])+'.'
+    plot = '.'.join(text.split('.')[:-1])+'.'
+    # Remove the last uncomplete sentence
     return {
         'genre': genre.strip(),
-        'title': title.strip(),
         'plot': plot.strip()
     }
 
