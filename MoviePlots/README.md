@@ -2,7 +2,7 @@
 
 #### Generating fake movie plots and detecting genres
 
-In this project, we fine-tune transformers in Google Colab to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
+In this project, we fine-tune transformers to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
 
 Tags: *Plots, Genres, Text Generation, Multilabel Classification, Python, GPT-2, DistilGPT2, BERT, RoBERTa, Distillation, Google Colab, Docker, App*
 
@@ -34,3 +34,7 @@ Plot generation is done in two ways: with titles and without. Including titles i
 - [Fine-tuning RoBERTa (fastai + huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/RoBERTa)
 - [Fine-tuning LM of BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning)
 - [Web application for detecting genres (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/app)
+
+#### Instructions
+
+Every notebook is meant to be run in Google Colab. For this, mount Google Drive on your computer, create a folder "Colab Notebooks", and pull the transformers repository there. Then run the [DataPrep.ipynb](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) notebook to prepare the data. After this, you should be ready to execute any Training notebook without issues.
