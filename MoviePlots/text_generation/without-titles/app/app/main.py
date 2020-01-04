@@ -25,12 +25,15 @@ EOS_TOKEN = '<|endoftext|>'
 
 def generate_text(params):
     """Generate text using transformers."""
-    prompt = ''
-    if params['genre']:
-        prompt += BOS_TOKEN + params['genre'] + EOG_TOKEN
-    if params['prefix']:
+    if params['genre'] and params['prefix']:
+        prompt = BOS_TOKEN + params['genre'] + EOG_TOKEN + params['prefix']
+    elif params['genre']:
+        prompt = BOS_TOKEN + params['genre'] + EOG_TOKEN
+    elif params['prefix']:
         # If user specifies prefix, the model cannot generate the genre anymore
-        prompt += params['prefix']
+        prompt = params['prefix']
+    else:
+        prompt = BOS_TOKEN
     text = run_generation.main([
         '--model_type=gpt2',
         '--model_name_or_path=app/output',
