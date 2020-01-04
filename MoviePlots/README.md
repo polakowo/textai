@@ -2,7 +2,7 @@
 
 #### Generating fake movie plots and detecting genres
 
-In this project, we use transformers to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
+In this project, we fine-tune transformers in Google Colab to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
 
 Tags: *Plots, Genres, Text Generation, Multilabel Classification, Python, GPT-2, DistilGPT2, BERT, RoBERTa, Distillation, Google Colab, Docker, App*
 
@@ -10,7 +10,7 @@ This project is split into three parts: data preparation, text generation and mu
 
 #### Data preparation
 
-The goal of this data preparation step is to produce clean data that is ready to be processed by training notebooks and to engineer features. The produced data has to be in a generic format acceptable for both text generation and label classification. Download the data first. Then, for each plot in the dataset, check if it's in English, and extract the primary title, the secondary title, the year, and the summary. Save the resulting data as an array of dictionaries.
+The goal of this data preparation step is to produce clean data and to engineer features that are ready to be used for training both generators and classifiers. For this, download the data first; then, for each plot in the dataset, check if it's in English, and extract the primary title, the secondary title, the year, and the summary. Save the resulting data in a generic format to the disk and import this data in the respective training notebook.
 
 - [Data preparation](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb)
 
@@ -21,7 +21,7 @@ Text generation isn't an easy task, and so it requires some experimentation with
 Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
 
 - With titles:
-  - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple)
+  - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple) - It was interesting to observe how the gpt2simple library differs from the huggingface library. For example, gpt2simple uses sampling without replacement, such that some data is selected multiple times while other is never selected. Also, gpt2simple seems to have faster training and inference.
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2)
   - [Web application for generating plots (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
