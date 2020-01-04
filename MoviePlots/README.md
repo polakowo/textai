@@ -1,15 +1,32 @@
-<img width=100 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/1C_Company_logo.svg/1200px-1C_Company_logo.svg.png"/>
+#### Generating fake movie plots and detecting genres
 
-#### Forecasting total sales for every product and store in the next month
+In this project, we use transformers to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
 
-Sales forecasting plays a major role in a company's success. The goal of this project was to predict total sales for every product and store in the next month. This challenging time-series problem was tackled by using GBMs, linear models, neural networks, and ensembles. The project was part of the [Predict Future Sales competition](https://www.kaggle.com/c/competitive-data-science-predict-future-sales).
+Tags: *Plots, Genres, Text Generation, Multilabel Classification, Python, GPT-2, DistilGPT2, BERT, RoBERTa, Distillation, Google Colab, Docker, App*
 
-Tags: *Competition, Sales Forecasting, Time Series, Neural Networks, Python, LGBM, CatBoost, Vowpal Wabbit, sklearn, fastai, Ensembling*
+This project is split into three parts: data preparation, text generation and multilabel classification.
 
-The clear step-by-step instruction on how to produce the final submit file:
-1. Download competition data and preprocess it with [DataPreparation](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/DataPreparation.ipynb), which outputs data in a HDF5 format.
-2. Run [LightGBM](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/LightGBM.ipynb) to produce first base-model meta features and predictions. While importing the preprocessed data, pay attention to the structure of folders with input files, since the notebooks were downloaded directly from Kaggle. Similarly run the [CatBoost](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/CatBoost.ipynb), [LinReg](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/LinReg.ipynb) and [NeuralNet](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/NeuralNet.ipynb) notebooks.
-4. Run [Stacking](https://nbviewer.jupyter.org/github/polakowo/mlprojects/blob/master/1c-sales-prediction/Stacking.ipynb), which takes outputs of the base models and generates CSV files for submission.
-5. (optional) For fastest use, upload all notebooks to Kaggle and import the competition data and the respective outputs from other kernels.
+#### Data preparation
 
-For more details, proceed to [Documentation](https://github.com/polakowo/mlprojects/blob/master/1c-sales-prediction/Documentation.md)
+- [Data preparation notebook](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) - For each plot in the dataset, extract the primary title, the secondary title, the year, and the summary.
+
+#### Plot generation
+
+Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
+
+- With titles:
+  - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple)
+  - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2)
+  - [Web application for generating plots (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
+- Without titles:
+  - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
+  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
+  - [Web application for generating plots (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
+
+#### Genre prediction
+
+- [Fine-tuning RoBERTa (fastai + huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/RoBERTa)
+- [Fine-tuning LM of BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning)
+- [Web application for detecting genres (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/app)
+
+<img width=350 src="https://github.com/polakowo/transformers/blob/master/MoviePlots/movie-plots.jpg?raw=true"/>
