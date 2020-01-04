@@ -2,7 +2,7 @@
 
 #### Generating fake movie plots and detecting genres
 
-In this project, we fine-tune transformers to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
+In this project, transformers are fine-tuned to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
 
 Tags: *Plots, Genres, Text Generation, Multilabel Classification, Python, GPT-2, DistilGPT2, BERT, RoBERTa, Distillation, Google Colab, Docker, App*
 
@@ -16,7 +16,7 @@ The goal of this data preparation step is to produce clean data and to engineer 
 
 #### Plot generation
 
-Text generation isn't an easy task, and so it requires some experimentation with models and hyperparameters. We tried multiple models, each becoming it's own directory with training and evaluation notebooks. After each fine-tuning process, we also generated dumps using various temperatures and top p's. Each training notebook contains tokenization, fine-tuning, and dump generation steps. Each evaluation notebook evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts semantically using the universal sentence embeddings developed by Google. It explores how uniqueness progresses from primary titles to secondary titles, and summaries. It also explores how temperature and top p affects the generation process.
+Text generation isn't an easy task, and so it requires some experimentation with models and hyperparameters. I tried multiple models, each becoming it's own directory with training and evaluation notebooks. After each fine-tuning process, I also generated dumps using various temperatures and top p's. Each training notebook contains tokenization, fine-tuning, and dump generation steps. Each evaluation notebook evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts semantically using the universal sentence embeddings developed by Google. It explores how uniqueness progresses from primary titles to secondary titles, and summaries. It also explores how temperature and top p affects the generation process.
 
 Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
 
