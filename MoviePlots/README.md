@@ -23,11 +23,11 @@ Plot generation is done in two ways: with titles and without. Including titles i
 - With titles:
   - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple) - It was interesting to observe how the gpt2simple library differs from the huggingface library. For example, gpt2simple uses sampling without replacement, such that some data is selected multiple times while other is never selected. Also, gpt2simple seems to offer faster training and inference. But TensorFlow 2.0 is currently not supported.
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2)
-  - [Web application for generating plots (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
+  - [Web application for generating plots and titles (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
   - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
-  - [Web application for generating plots and titles (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
+  - [Web application for generating plots (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
 
 #### Genre prediction
 
