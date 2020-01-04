@@ -10,9 +10,13 @@ This project is split into three parts: data preparation, text generation and mu
 
 #### Data preparation
 
-- [Data preparation notebook](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) - For each plot in the dataset, extract the primary title, the secondary title, the year, and the summary.
+The goal of this data preparation step is to produce clean data that is ready to be processed by training notebooks and to engineer features. The produced data has to be in a generic format acceptable for both text generation and label classification. Download the data first. Then, for each plot in the dataset, check if it's in English, and extract the primary title, the secondary title, the year, and the summary. Save the resulting data as an array of dictionaries.
+
+- [Data preparation](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb)
 
 #### Plot generation
+
+Text generation isn't an easy task, and so it requires some experimentation with models and hyperparameters. We tried multiple models, each becoming it's own directory with training and evaluation notebooks. After each fine-tuning process, we also generated dumps using various temperatures and top p's. Each training notebook contains tokenization, fine-tuning, and dump generation steps. Each evaluation notebook evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts semantically using the universal sentence embeddings developed by Google. It explores how uniqueness progresses from primary titles to secondary titles, and summaries. It also explores how temperature and top p affects the generation process.
 
 Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
 
