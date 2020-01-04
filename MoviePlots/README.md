@@ -32,9 +32,9 @@ Plot generation is done in two ways: with titles and without. Including titles i
 #### Genre prediction
 
 - [Fine-tuning RoBERTa (fastai + huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/RoBERTa)
-- [Fine-tuning LM of BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning)
+- [Fine-tuning LM of BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning) - Language model fine-tuning was done with with a maximum block size of 256 and linear schedule. A block size of 512 produced no improvement in loss, which is strange. 
 - [Web application for detecting genres (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/app)
 
-#### Instructions
+#### Usage
 
 Every notebook is meant to be run in Google Colab. For this, mount Google Drive on your computer, create a folder "Colab Notebooks", and pull the transformers repository there. Then run the [DataPrep.ipynb](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) notebook to prepare the data. After this, you should be ready to execute any Training notebook with GPU support. Tip: Do not abuse Colab, remember to terminate any unused GPU sessions, and Colab will award you with fastest devices.
