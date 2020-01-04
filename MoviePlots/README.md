@@ -21,7 +21,7 @@ Text generation isn't an easy task, and so it requires some experimentation with
 Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
 
 - With titles:
-  - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple) - It was interesting to observe how the gpt2simple library differs from the huggingface library. For example, gpt2simple uses sampling without replacement, such that some data is selected multiple times while other is never selected. Also, gpt2simple seems to have faster training and inference.
+  - [Fine-tuning GPT-2 (gpt2simple)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2-gpt2simple) - It was interesting to observe how the gpt2simple library differs from the huggingface library. For example, gpt2simple uses sampling without replacement, such that some data is selected multiple times while other is never selected. Also, gpt2simple seems to offer faster training and inference. But TensorFlow 2.0 is currently not supported.
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/GPT-2)
   - [Web application for generating plots (supports huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
