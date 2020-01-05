@@ -41,7 +41,7 @@
             </ul>
         </nav>
     </header>
-    <main role="main" class="container-fluid mt-3">
+    <div class="container-fluid mt-3">
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="alert alert-danger collapse" role="alert">
@@ -59,12 +59,12 @@
                         <button class="btn btn-success" id="random-plot" type="button">
                             <span class="icon">
                             <i class="fas fa-md fa-random"></i>
-                        </span><span>Try Random Plot</span>
+                        </span> Try Random Plot
                         </button>
                         <button class="btn btn-primary" id="predict-genres" type="submit" name="submit">
                             <span class="icon">
                             <i class="fas fa-md fa-magic"></i>
-                        </span><span>Predict Genres!</span>
+                        </span> Predict Genres!
                         </button>
                     </div>
                 </form>
@@ -118,9 +118,11 @@
                 data: JSON.stringify(getInputValues()),
                 beforeSend: function (data) {
                     $('#predict-genres').prop("disabled", true);
+                    $('#predict-genres').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Predicting...');
                 },
                 success: function (data) {
                     $('#predict-genres').prop("disabled", false);
+                    $('#predict-genres').html('<span class="icon"><i class="fas fa-md fa-magic"></i></span> Predict Genres!');
                     $(".alert").hide();
                     if ($('#chart').length) {
                         // Update chart
@@ -163,6 +165,7 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#predict-genres').prop("disabled", false);
+                    $('#predict-genres').html('<span class="icon"><i class="fas fa-md fa-magic"></i></span> Predict Genres!');
                     $(".alert").show();
                 }
             });
