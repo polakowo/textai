@@ -7,7 +7,7 @@
 cd "~/Google Drive/Colab Notebooks"
 git clone https://github.com/polakowo/transformers.git
 ```
-- Run the [DataPrep notebook](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) in Google Colab
+- Run the [DataPreparation notebook](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPreparation.ipynb) in Google Colab
 - Choose a model and run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/text_generation/with-titles/GPT-2/Training.ipynb) in Google Colab
 - Copy the generated `output` directory to the `app/app` directory
 - Run the following commands in terminal

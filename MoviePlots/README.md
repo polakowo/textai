@@ -12,7 +12,7 @@ This project is split into three parts: data preparation, text generation and mu
 
 The goal of this data preparation step is to produce clean data and to engineer features that are ready to be used for training both generators and classifiers. For this, download the data first; then, for each plot in the dataset, check if it's in English, and extract the primary title, the secondary title, the year, and the summary. Save the resulting data in a generic format to the disk and import this data in the respective training notebook.
 
-- [Data preparation](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb)
+- [Data preparation](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPreparation.ipynb)
 
 #### Plot generation
 
@@ -39,4 +39,4 @@ Because each plot can be assigned to multiple genres, genre prediction is a mult
 
 #### Usage
 
-Every notebook is meant to be run in Google Colab. For this, mount Google Drive on your computer, create a folder "Colab Notebooks", and pull the transformers repository there. Then run the [DataPrep.ipynb](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPrep.ipynb) notebook to prepare the data. After this, you should be ready to execute any Training notebook with GPU support. Tip: Do not abuse Colab, remember to terminate any unused GPU sessions, and Colab will award you with fastest devices.
+Every notebook is meant to be run in Google Colab. For this, mount Google Drive on your computer, create a folder "Colab Notebooks", and pull the transformers repository there. Then run the [DataPreparation.ipynb](https://nbviewer.jupyter.org/github/polakowo/transformers/blob/master/MoviePlots/DataPreparation.ipynb) notebook to prepare the data. After this, you should be ready to execute any Training notebook with GPU support. Tip: Do not abuse Colab, remember to terminate any unused GPU sessions, and Colab will award you with fastest devices.
