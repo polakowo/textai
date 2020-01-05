@@ -16,7 +16,7 @@ The goal of this data preparation step is to produce clean data and to engineer 
 
 #### Plot generation
 
-Text generation isn't an easy task, and so it requires some experimentation with models and hyperparameters. I tried multiple models, each becoming it's own directory with training and evaluation notebooks. After each fine-tuning process, I also generated dumps using various temperatures and top p's. Each training notebook contains tokenization, fine-tuning, and dump generation steps. Each evaluation notebook evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts semantically using the universal sentence embeddings developed by Google. It explores how uniqueness progresses from primary titles to secondary titles, and summaries. It also explores how temperature and top p affects the generation process.
+Text generation isn't an easy task, and so it requires some experimentation with models and hyperparameters. I tried multiple models, each becoming it's own directory with training and evaluation notebooks. After each fine-tuning process, dumps using various temperatures and top p's were generated. Each training notebook performs tokenization, fine-tuning, and dump generation steps. Each evaluation notebook evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts semantically using the universal sentence embeddings developed by Google. It explores how uniqueness progresses from primary titles to secondary titles, and summaries. It also explores how temperature and top p affects the generation process.
 
 Plot generation is done in two ways: with titles and without. Including titles is fun but makes the model put too much attention on titles than on genres while training, which leads to overfitting. The analysis of this is done in the respective evaluation notebooks.
 
@@ -26,7 +26,7 @@ Plot generation is done in two ways: with titles and without. Including titles i
   - [Web application for generating plots and titles (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
-  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
+  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2) - Distilled GPT-2 ([link](https://github.com/huggingface/transformers/tree/master/examples/distillation)) has less parameters than the original GPT-2 architecture and is simpler. This leads to generated texts being also simple and sometimes repeated in a loop. 
   - [Web application for generating plots (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
 
 #### Genre prediction
