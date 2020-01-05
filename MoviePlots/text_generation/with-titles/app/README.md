@@ -16,3 +16,5 @@ docker build -t text-generation .
 docker run -p 5000:5000 text-generation
 open http://localhost:5000
 ```
+
+![Web app screenshot](app.png)
