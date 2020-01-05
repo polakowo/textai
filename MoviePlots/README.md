@@ -26,7 +26,7 @@ Plot generation is done in two ways: with titles and without. Including titles i
   - [Web application for generating plots and titles (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
-  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2) - Distilled GPT-2 ([link](https://github.com/huggingface/transformers/tree/master/examples/distillation)) has less parameters than the original GPT-2 architecture and is simpler. This leads to generated texts being also simple and sometimes repeated in a loop. 
+  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2) - Distilled GPT-2 ([link](https://github.com/huggingface/transformers/tree/master/examples/distillation)) has less parameters than the original GPT-2 architecture. This leads to generated texts being also simple and sometimes repeated in a loop. 
   - [Web application for generating plots (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
 
 #### Genre prediction
