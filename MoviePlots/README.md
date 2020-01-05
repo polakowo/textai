@@ -26,13 +26,15 @@ Plot generation is done in two ways: with titles and without. Including titles i
   - [Web application for generating plots and titles (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/with-titles/app)
 - Without titles:
   - [Fine-tuning GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2)
-  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2) - Distilled GPT-2 ([link](https://github.com/huggingface/transformers/tree/master/examples/distillation)) has less parameters than the original GPT-2 architecture. This leads to generated texts being also simple and sometimes repeated in a loop. 
+  - [Fine-tuning Distilled GPT-2 (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/GPT-2) - Distilled GPT-2 ([link](https://github.com/huggingface/transformers/tree/master/examples/distillation)) has less parameters than the original GPT-2 architecture. This leads to generated texts being simple and sometimes repeated in a loop. 
   - [Web application for generating plots (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/text_generation/without-titles/app)
 
 #### Genre prediction
 
-- [Fine-tuning RoBERTa (fastai + huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/RoBERTa)
-- [Fine-tuning LM of BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning) - Language model fine-tuning was done with with a maximum block size of 256 and linear schedule. A block size of 512 produced no improvement in loss, which is strange. 
+Because each plot can be assigned to multiple genres, genre prediction is a multilabel classification task. Some genres are more prevalent than the others, which leads to a class imbalance problem. It was tackled by passing weights to the BCE loss rather than resampling. 
+
+- [Fine-tuning RoBERTa (fastai + huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/RoBERTa) - Using fastai for this task is much more easier than tweaking the script [run_glue.py](https://github.com/huggingface/transformers/blob/master/examples/run_glue.py).
+- [Fine-tuning LM and classification BERT (huggingface)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/BERT/lm_finetuning) - Language model fine-tuning was done with with a maximum block size of 256 and linear schedule. A block size of 512 produced no improvement in loss; I still can't figure out why. 
 - [Web application for detecting genres (huggingface only)](https://github.com/polakowo/transformers/tree/master/MoviePlots/genre_prediction/app)
 
 #### Usage
