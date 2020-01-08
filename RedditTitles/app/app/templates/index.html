@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Generate new Reddit titles with transformers!</title>
+    <meta name="title" content="Generate new Reddit titles with transformers!" />
+    <meta name="description" content="Generate new Reddit titles with transformers!" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha256-OUFW7hFO0/r5aEGTQOz9F/aXQOt+TwqI1Z4fbVvww04=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <span class="icon is-large">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fas fa-robot fa-stack-1x fa-inverse"></i>
+                    </span>
+                </span>
+            </a>
+            <span class="navbar-text">
+                Generate new Reddit titles with transformers!
+            </span>
+            <div class="collapse navbar-collapse" id="navbarText">
+                
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="https://github.com/polakowo/transformers" target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-lg fa-github"></i>
+                        </span><span>GitHub</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container-fluid mt-3">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="alert alert-danger collapse" role="alert">
+                    There was an error generating the text! Please try again!
+                </div>
+            </div>
+        </div>
+        <form id="gen-form">
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="genre">Text Prompt</label>
+                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Starts the generated text with the specified text. (Optional)"></i>
+                        <div class="form-group">
+                            <textarea id="prompt" class="form-control" type="text" placeholder="Text Prompt"
+                                rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Temperature</label>
+                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Controls the generated text creativity. (Optional, 0.7-1.3 recommended)"></i>
+                        <div class="form-group">
+                            <input id="temperature" class="form-control" type="text" placeholder="Temperature" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Top <em>p</em></label>
+                        <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Keep the top tokens with cumulative probability higher than this value. (Optional, 0-1 recommended)"></i>
+                        <div class="form-group">
+                            <input id="top_p" class="form-control" type="text" placeholder="Top p" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="generate-text" type="submit" name="submit">
+                            <span class="icon"><i class="fas fa-md fa-pen"></i></span> Generate!
+                        </button>
+                        <p><small>May take a minute.</em></small></p>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="form-group">
+                        <div id="model-output">
+                            <p>Generated text will appear here! Use the form to configure GPT-2 and press "Generate Text" to get your own text!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            Made by <a href="https://polakowo.io" target="_blank">polakowo</a>. Original GPT-2 model provided by <a
+            href="https://openai.com" target="_blank">OpenAI</a>. This website content is licensed <a
+                    href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+        </div>
+    </footer>
+</body>
+<script type="text/javascript">
+
+    // Activate tooltips
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+
+    // Request handling
+    $(function () {
+        $('#gen-form').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/generate",
+                dataType: "json",
+                data: JSON.stringify(getInputValues()),
+                beforeSend: function (data) {
+                    $('#generate-text').prop("disabled", true);
+                    $('#generate-text').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Generating...');
+                },
+                success: function (data) {
+                    $('#generate-text').prop("disabled", false);
+                    $('#generate-text').html('<span class="icon"><i class="fas fa-md fa-pen"></i></span> Generate!');
+                    $(".alert").hide();
+                    $('#model-output').text('');
+                    var html = `<p>${data.text}</p>`;
+                    $(html).appendTo('#model-output').hide().fadeIn("slow");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#generate-text').prop("disabled", false);
+                    $('#generate-text').html('<span class="icon"><i class="fas fa-md fa-pen"></i></span> Generate!');
+                    $(".alert").show();
+                    $('#model-output').text('');
+                }
+            });
+        });
+    });
+    function getInputValues() {
+        var inputs = {};
+        $("textarea, input, select").each(function () {
+            inputs[$(this).attr('id')] = $(this).val();
+        });
+        return inputs;
+    }
+</script>
+
+</html>
