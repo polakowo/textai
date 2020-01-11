@@ -107,5 +107,6 @@ venv.bak/
 cache
 output
 data
+models
 checkpoint
 eval_cache
