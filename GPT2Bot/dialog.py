@@ -110,6 +110,7 @@ def download_model_folder(config):
 def load_model(target_folder, config):
     # Parse parameters
     model_size = config.get('model', 'model_size')
+    no_cuda = config.getboolean('model', 'no_cuda')
 
     logger.info("Loading the model...")
     device = torch.device("cuda" if torch.cuda.is_available() and not no_cuda else "cpu")
