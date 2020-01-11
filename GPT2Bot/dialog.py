@@ -10,6 +10,7 @@ import torch
 import torch.nn.functional as F
 from glob import glob
 import configparser
+import argparse
 import logging
 
 # !pip install transformers==2.3.0
@@ -252,8 +253,15 @@ def run_dialog(model, tokenizer, config):
         turn['bot_messages'].append(bot_message)
 
 def main():
+    # Script arguments can include path of the config
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('--config', type=str, default="dialog.cfg")
+    args = arg_parser.parse_args()
+
+    # Read the config
     config = configparser.ConfigParser(allow_no_value=True)
-    config.read('dialog.cfg')
+    with open(args.config) as f:
+        config.read_file(f)
 
     # Download model artifacts
     target_dir = download_model_folder(config)

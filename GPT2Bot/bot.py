@@ -7,6 +7,7 @@ from telegram import ChatAction, ParseMode
 from functools import wraps
 from dialog import download_model_folder, load_model, generate_response
 import configparser
+import argparse
 import logging
 
 # Enable logging
@@ -107,8 +108,15 @@ class TelegramBot:
         self.updater.idle()
 
 def main():
+    # Script arguments can include path of the config
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('--config', type=str, default="dialog.cfg")
+    args = arg_parser.parse_args()
+
+    # Read the config
     config = configparser.ConfigParser(allow_no_value=True)
-    config.read('dialog.cfg')
+    with open(args.config) as f:
+        config.read_file(f)
 
     # Download model artifacts
     target_dir = download_model_folder(config)
