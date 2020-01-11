@@ -1,14 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#  Copyright (c) polakowo
+#  Licensed under the MIT license.
 
 # !pip install python-telegram-bot --upgrade
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import ChatAction, ParseMode
 from functools import wraps
-from dialog import download_model_folder, load_model, generate_response
 import configparser
 import argparse
 import logging
+
+from decoder import download_model_folder, load_model, generate_response
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -96,7 +97,7 @@ class TelegramBot:
         # log all errors
         dp.add_error_handler(error)
 
-    def run(self):
+    def run_chat(self):
         logger.info("Running the bot...")
 
         # Start the Bot
@@ -110,7 +111,7 @@ class TelegramBot:
 def main():
     # Script arguments can include path of the config
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', type=str, default="dialog.cfg")
+    arg_parser.add_argument('--config', type=str, default="config.cfg")
     args = arg_parser.parse_args()
 
     # Read the config
@@ -126,7 +127,7 @@ def main():
 
     # Run Telegram bot
     bot = TelegramBot(model, tokenizer, config)
-    bot.run()
+    bot.run_chat()
     
 if __name__ == '__main__':
     main()

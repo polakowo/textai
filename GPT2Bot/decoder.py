@@ -1,14 +1,14 @@
-#  Copyright (c) Microsoft Corporation.
+#  Copyright (c) polakowo
 #  Licensed under the MIT license.
 
 import os
 import requests
 from tqdm import tqdm
+from glob import glob
 import random
 import numpy as np
 import torch
 import torch.nn.functional as F
-from glob import glob
 import configparser
 import argparse
 import logging
@@ -214,65 +214,3 @@ def generate_response(model, tokenizer, context, config):
     if num_samples == 1:
         return texts[0]
     return texts
-
-def run_dialog(model, tokenizer, config):
-    # Parse parameters
-    turns_memory = config.getint('dialog', 'turns_memory')
-
-    logger.info("Running the dialog...")
-    turns = []
-    while True:
-        prompt = input("User >>> ")
-        if turns_memory == 0:
-            # If you still get different responses then set seed
-            turns = []
-        if prompt == '/start_over':
-            turns = []
-            continue
-        if prompt == '/quit':
-            break
-        # A single turn is a group of user messages and bot responses right after
-        turn = {
-            'user_messages': [],
-            'bot_messages': []
-        }
-        turns.append(turn)
-        turn['user_messages'].append(prompt)
-        # Merge turns into a single history (don't forget EOS token)
-        history = ""
-        from_index = max(len(turns)-turns_memory-1, 0) if turns_memory >= 0 else 0
-        for turn in turns[from_index:]:
-            # Each turn begings with user messages
-            for message in turn['user_messages']:
-                history += message + tokenizer.eos_token
-            for message in turn['bot_messages']:
-                history += message + tokenizer.eos_token
-
-        # Generate bot messages
-        bot_message = generate_response(model, tokenizer, history, config)
-        print("Bot >>>", bot_message)
-        turn['bot_messages'].append(bot_message)
-
-def main():
-    # Script arguments can include path of the config
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', type=str, default="dialog.cfg")
-    args = arg_parser.parse_args()
-
-    # Read the config
-    config = configparser.ConfigParser(allow_no_value=True)
-    with open(args.config) as f:
-        config.read_file(f)
-
-    # Download model artifacts
-    target_dir = download_model_folder(config)
-
-    # Load model and tokenizer
-    model, tokenizer = load_model(target_dir, config)
-
-    # Run dialog with GPT-2
-    run_dialog(model, tokenizer, config)
-    
-
-if __name__ == '__main__':
-    main()

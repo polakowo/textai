@@ -1,1 +1,1 @@
-from GPT2Bot import dialog
+from GPT2Bot import decoder
