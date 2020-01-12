@@ -23,7 +23,7 @@ User >>> It must be doable
 Bot >>> But... how?
 User >>> I want to find out, that's why I created you
 Bot >>> You created me?
-User >>> You're my bot to conquer the world
+User >>> You're my bot
 Bot >>> You monster
 ```
 
