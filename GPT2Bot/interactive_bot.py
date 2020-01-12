@@ -23,8 +23,12 @@ def run_chat(model, tokenizer, config):
         if turns_memory == 0:
             # If you still get different responses then set seed
             turns = []
-        if prompt == '/start_over':
+        if prompt == '/restart':
+            print("Bot >>>", "Let's start from scratch.")
             turns = []
+            continue
+        if prompt == '/help':
+            print("Bot >>>", "Just start texting me. If it's getting annoying, type /restart")
             continue
         if prompt == '/quit':
             break
