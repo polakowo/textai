@@ -1,1 +1,1 @@
-from GPT2Bot import decoder
+from GPT2Bot import model, decoder

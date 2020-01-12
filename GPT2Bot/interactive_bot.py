@@ -5,7 +5,8 @@ import configparser
 import argparse
 import logging
 
-from decoder import download_model_folder, load_model, generate_response
+from model import download_model_folder, load_model
+from decoder import generate_response
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -13,9 +14,9 @@ logger = logging.getLogger(__name__)
 
 def run_chat(model, tokenizer, config):
     # Parse parameters
-    turns_memory = config.getint('dialog', 'turns_memory')
+    turns_memory = config.getint('chatbot', 'turns_memory')
 
-    logger.info("Running the dialog...")
+    logger.info("Running the chatbot...")
     turns = []
     while True:
         prompt = input("User >>> ")
@@ -52,7 +53,7 @@ def run_chat(model, tokenizer, config):
 def main():
     # Script arguments can include path of the config
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', type=str, default="config.cfg")
+    arg_parser.add_argument('--config', type=str, default="chatbot.cfg")
     args = arg_parser.parse_args()
 
     # Read the config
@@ -66,7 +67,7 @@ def main():
     # Load model and tokenizer
     model, tokenizer = load_model(target_dir, config)
 
-    # Run dialog with GPT-2
+    # Run chatbot with GPT-2
     run_chat(model, tokenizer, config)
     
 

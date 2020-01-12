@@ -9,7 +9,8 @@ import configparser
 import argparse
 import logging
 
-from decoder import download_model_folder, load_model, generate_response
+from model import download_model_folder, load_model
+from decoder import generate_response
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -43,7 +44,7 @@ send_typing_action = send_action(ChatAction.TYPING)
 @send_typing_action
 def message(self, update, context):
     # Parse parameters
-    turns_memory = self.config.getint('dialog', 'turns_memory')
+    turns_memory = self.config.getint('chatbot', 'turns_memory')
     turns = context.chat_data['turns']
 
     if turns_memory == 0:
@@ -84,21 +85,21 @@ class TelegramBot:
         self.config = config
 
         # Set up Telegram bot
-        self.updater = Updater(config.get('telegram', 'token'), use_context=True)
+        self.updater = Updater(config.get('chatbot', 'token'), use_context=True)
         dp = self.updater.dispatcher
 
         # on different commands - answer in Telegram
         # conversation with bot
         dp.add_handler(MessageHandler(Filters.text, self_decorator(self, message)))
 
-        # dialog settings
+        # chatbot settings
         dp.add_handler(CommandHandler('start', start_command))
 
         # log all errors
         dp.add_error_handler(error)
 
     def run_chat(self):
-        logger.info("Running the bot...")
+        logger.info("Running the chatbot...")
 
         # Start the Bot
         self.updater.start_polling()
@@ -111,7 +112,7 @@ class TelegramBot:
 def main():
     # Script arguments can include path of the config
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--config', type=str, default="config.cfg")
+    arg_parser.add_argument('--config', type=str, default="chatbot.cfg")
     args = arg_parser.parse_args()
 
     # Read the config
