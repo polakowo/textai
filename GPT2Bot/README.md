@@ -13,23 +13,18 @@ GPT2Bot implements a decoder ([link](https://github.com/polakowo/textai/blob/mas
 - Set your parameters in dialog.cfg
 - Run `python interactive_bot.py`
 
-Example dialog:
+An example of a fun dialog:
 ```
-User >>> Hello!
-Bot >>> Hello! :D
-User >>> How was your day?
-Bot >>> It was okay.
-User >>> Did you enjoy the weather today?
-Bot >>> It was nice.
-User >>> Where are you from?
-Bot >>> I'm from the Netherlands.
-User >>> Which city?
-Bot >>> I'm from Amsterdam.
-User >>> Is pot legal in Amsterdam?
-Bot >>> It is.
-User >>> Sounds fun.
-Bot >>> It is.
-User >>> /quit
+User >>> Can we achieve singularity?
+Bot >>> What does this mean?
+User >>> Can computers become smarter than humans?
+Bot >>> Is there any evidence that this is possible?
+User >>> It must be doable
+Bot >>> But... how?
+User >>> I want to find out, that's why I created you
+Bot >>> You created me?
+User >>> You're my bot to conquer the world
+Bot >>> You monster
 ```
 
 #### Telegram chatbot
