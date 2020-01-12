@@ -10,7 +10,10 @@ import argparse
 import logging
 import requests
 from urllib.parse import urlencode
-from requests.exceptions import HTTPError
+import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+import random
 
 from model import download_model_folder, load_model
 from decoder import generate_response
@@ -21,12 +24,28 @@ logger = logging.getLogger(__name__)
 
 # https://github.com/python-telegram-bot/python-telegram-bot/wiki/Code-snippets
 
-def restart_command(update, context):
+def start_command(update, context):
     context.chat_data['turns'] = []
-    update.message.reply_text("Let's start from scratch.")
+    update.message.reply_text("Just start texting me. Append \"@gif\" for me to generate a GIF. If I'm getting annoying, type \"Bye\"")
 
-def help_command(update, context):
-    update.message.reply_text("Just start texting me. If it's getting annoying, type /restart")
+def requests_retry_session(
+    retries=3,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
 
 def translate_message_to_gif(message, config):
     # https://engineering.giphy.com/contextually-aware-search-giphy-gets-work-specific/
@@ -36,13 +55,7 @@ def translate_message_to_gif(message, config):
         'weirdness': config.getint('chatbot', 'giphy_weirdness')
     }
     url = "http://api.giphy.com/v1/gifs/translate?" + urlencode(params)
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-    except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')
-    except Exception as err:
-        print(f'Other error occurred: {err}')
+    response = requests_retry_session().get(url)
     return response.json()['data']['images']['fixed_height']['url']
 
 def self_decorator(self, func):
@@ -62,14 +75,6 @@ def send_action(action):
         return command_func
     return decorator
 
-def gif_mode(update, context):
-    context.chat_data['gif_mode'] = True
-    update.message.reply_text("Switched to the GIF mode.")
-
-def text_mode(update, context):
-    context.chat_data['gif_mode'] = False
-    update.message.reply_text("Switched to the text mode.")
-
 send_typing_action = send_action(ChatAction.TYPING)
 
 @send_typing_action
@@ -80,11 +85,17 @@ def message(self, update, context):
         context.chat_data['turns'] = []
     turns = context.chat_data['turns']
 
-    if context.chat_data.get('gif_mode', False):
-        # TODO: Find a way to extract caption from GIFs sent by the user
-        user_message = update.message.text
-    else:
-        user_message = update.message.text
+    user_message = update.message.text
+    if user_message.lower() == 'bye':
+        # Restart chat
+        context.chat_data['turns'] = []
+        update.message.reply_text("Bye")
+        return None
+    return_gif = False
+    if '@gif' in user_message:
+        # Return gif
+        return_gif = True
+        user_message = user_message.replace('@gif', '').strip()
     if turns_memory == 0:
         # If you still get different responses then set seed
         context.chat_data['turns'] = []
@@ -108,12 +119,14 @@ def message(self, update, context):
     # Generate bot messages
     bot_message = generate_response(self.model, self.tokenizer, history, self.config)
     turn['bot_messages'].append(bot_message)
-    # Return response as text
-    update.message.reply_text(bot_message)
-    if context.chat_data.get('gif_mode', False):
+    if return_gif:
         # Return response as GIF
         gif_url = translate_message_to_gif(bot_message, self.config)
         context.bot.send_animation(update.effective_message.chat_id, gif_url)
+    else:
+        # Return response as text
+        update.message.reply_text(bot_message)
+        
 
 def error(update, context):
     logger.warning(context.error)
@@ -136,10 +149,7 @@ class TelegramBot:
         dp.add_handler(MessageHandler(Filters.text, self_decorator(self, message)))
 
         # chatbot settings
-        dp.add_handler(CommandHandler('restart', restart_command))
-        dp.add_handler(CommandHandler('help', help_command))
-        dp.add_handler(CommandHandler('gifmode', gif_mode))
-        dp.add_handler(CommandHandler('textmode', text_mode))
+        dp.add_handler(CommandHandler('start', start_command))
 
         # log all errors
         dp.add_error_handler(error)

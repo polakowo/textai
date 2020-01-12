@@ -18,19 +18,17 @@ def run_chat(model, tokenizer, config):
 
     logger.info("Running the chatbot...")
     turns = []
+    print("Bot >>>", "Just start texting me. If I'm getting annoying, type \"Bye\". To quit the chat type \"Quit\".")
     while True:
         prompt = input("User >>> ")
         if turns_memory == 0:
             # If you still get different responses then set seed
             turns = []
-        if prompt == '/restart':
-            print("Bot >>>", "Let's start from scratch.")
+        if prompt.lower() == 'bye':
+            print("Bot >>>", "Bye")
             turns = []
             continue
-        if prompt == '/help':
-            print("Bot >>>", "Just start texting me. If it's getting annoying, type /restart")
-            continue
-        if prompt == '/quit':
+        if prompt.lower() == 'quit':
             break
         # A single turn is a group of user messages and bot responses right after
         turn = {
