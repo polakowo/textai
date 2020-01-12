@@ -13,7 +13,28 @@ GPT2Bot implements a decoder ([link](https://github.com/polakowo/textai/blob/mas
 - Set your parameters in dialog.cfg
 - Run `python interactive_bot.py`
 
+Example dialog:
+```
+User >>> Hello!
+Bot >>> Hello! :D
+User >>> How was your day?
+Bot >>> It was okay.
+User >>> Did you enjoy the weather today?
+Bot >>> It was nice.
+User >>> Where are you from?
+Bot >>> I'm from the Netherlands.
+User >>> Which city?
+Bot >>> I'm from Amsterdam.
+User >>> Is pot legal in Amsterdam?
+Bot >>> It is.
+User >>> Sounds fun.
+Bot >>> It is.
+User >>> /quit
+```
+
 #### Telegram chatbot
+
+The same as the interactive chatbot but in Telegram and supports gifs.
 
 - Create a new Telegram bot via BotFather (see https://core.telegram.org/bots)
 - Set your parameters such as API token in dialog.cfg
