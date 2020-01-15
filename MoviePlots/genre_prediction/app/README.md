@@ -5,7 +5,7 @@
 
 In Google Colab,
 - Run the [Data Preparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/DataPreparation.ipynb)
-- Run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/genre_prediction/RoBERTa/Training.ipynb)
+- Run one of the training notebooks
 
 Then locally,
 - Copy the generated `output` directory to the `app/app` directory (you can delete `models` subdir)
