@@ -6,7 +6,7 @@ Tags: Reddit, Text Generation, Python, GPT-2, Google Colab, Docker, App
 
 #### Dataset
 
-The dataset consists of 1,488,963 titles of "r/Showerthoughts" subreddit, but you can specify any other subreddit as well.
+The dataset consists of 1,488,963 titles of [r/Showerthoughts](https://www.reddit.com/r/Showerthoughts/) subreddit, but you can specify any other subreddit as well.
 
 #### Data preparation
 
