@@ -5,10 +5,10 @@
 
 In Google Colab,
 - Run the [Data Preparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/DataPreparation.ipynb)
-- Run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/text_generation/without-titles/DistilGPT-2/Training.ipynb)
+- Run one of the training notebooks
 
 Then locally,
-- Copy the generated `output` directory to the `app/app` directory (you can delete `models` subdir)
+- Copy the generated `output` directory to the `app/app` directory
 - Run the following commands in terminal
 ```
 docker build -t text-generation .
