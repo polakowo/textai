@@ -26,9 +26,7 @@ The [Evaluation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/bl
 
 #### App
 
-The containerized web application offers a simple interface to generate titles based on user prompt. 
-
-https://github.com/polakowo/textai/tree/master/RedditTitles/app
+The [containerized web application](https://github.com/polakowo/textai/tree/master/RedditTitles/app) offers a simple interface to generate titles based on user prompt. 
 
 #### Usage
 
