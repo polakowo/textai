@@ -22,7 +22,7 @@ In the model folder there are two different training notebooks:
 
 #### Evaluation
 
-The [Evaluation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/Evaluation.ipynb) evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts syntactically using Jaccard index on common words and semantically using the [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/4) developed by Google. The notebook also explores how `temperature` and `top_p` affect the generation process.
+The [Evaluation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/Evaluation.ipynb) evaluates the generated dumps; for example, it explores how similar the generated texts are to the training texts using the Jaccard similarity index and semantically using the [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/4) developed by Google. The notebook also explores how `temperature` and `top_p` affect the generation process.
 
 #### Usage
 
