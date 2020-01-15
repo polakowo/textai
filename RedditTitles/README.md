@@ -1,6 +1,6 @@
-### Generating fake Reddit titles
+### RedditTitles
 
-In this project, I fine-tuned transformers on Reddit titles to produce new, creative ones.
+In this project, GPT-2 was fine-tuned on Reddit titles to produce new, creative ones.
 
 Tags: Reddit, Text Generation, Python, GPT-2, Google Colab, Docker, App
 
