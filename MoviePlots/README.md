@@ -1,6 +1,6 @@
 <img width=350 src="https://github.com/polakowo/textai/blob/master/MoviePlots/movie-plots.jpg?raw=true"/>
 
-#### Generating fake movie plots and detecting genres
+### MoviePlots
 
 In this project, transformers are fine-tuned to perform two different tasks: generate new movie plots and predict genres. Movie plots have the advantage of being relatively short, have useful metadata (such as genres), and have a unique writing style that can be easily learned by a machine. The dataset contains short summaries of 117,352 movies and series from around the world.
 
