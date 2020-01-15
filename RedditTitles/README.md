@@ -10,9 +10,7 @@ The dataset consists of 1,488,963 titles of [r/Showerthoughts](https://www.reddi
 
 #### Data preparation
 
-The data preparation process combines data acquisition, data exploration, and data cleansing steps to produce a clean dataset suitable for text generation. After Reddit has disabled Cloudsearch for all of their users, to download the dataset, I used a third-party dataset API called Pushshift (pushshift.io). In particular, I created a method to recursively fetch data from Pushshift using timestamps. After getting the raw data, various preprocessing steps on titles were performed, such as duplicates removal. Titles were also checked for offensive language using [profanity-check](https://pypi.org/project/profanity-check/) and non-English titles using [langdetect](https://pypi.org/project/langdetect/).
-
-[Notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/DataPreparation.ipynb)
+The data preparation [notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/DataPreparation.ipynb) combines data acquisition, data exploration, and data cleansing steps to produce a clean dataset suitable for text generation. After Reddit has disabled Cloudsearch for all of their users, to download the dataset, I used a third-party dataset API called Pushshift (pushshift.io). In particular, I created a method to recursively fetch data from Pushshift using timestamps. After getting the raw data, various preprocessing steps on titles were performed, such as duplicates removal. Titles were also checked for offensive language using [profanity-check](https://pypi.org/project/profanity-check/) and non-English titles using [langdetect](https://pypi.org/project/langdetect/).
 
 #### Title generation
 
