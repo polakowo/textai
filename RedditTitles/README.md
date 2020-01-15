@@ -1,4 +1,4 @@
-#### Generating fake Reddit titles
+### Generating fake Reddit titles
 
 In this project, I fine-tuned transformers on Reddit titles to produce new, creative ones.
 
