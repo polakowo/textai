@@ -1,14 +1,13 @@
 #### App deployment
 
 - Mount Google Drive on your computer
-- Create `Colab Notebooks` directory
-- Run the following commands in terminal
-```
-cd "~/Google Drive/Colab Notebooks"
-git clone https://github.com/polakowo/textai.git
-```
-- Run the [DataPreparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/DataPreparation.ipynb) in Google Colab
-- Choose a model and run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/text_generation/without-titles/DistilGPT-2/Training.ipynb) in Google Colab
+- Create `Colab Notebooks` directory and clone the textai repo there
+
+In Google Colab,
+- Run the [Data Preparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/DataPreparation.ipynb)
+- Run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/RedditTitles/GPT2-small/Training.ipynb)
+
+Then locally,
 - Copy the generated `output` directory to the `app/app` directory
 - Run the following commands in terminal
 ```
