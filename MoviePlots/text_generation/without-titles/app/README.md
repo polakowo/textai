@@ -1,15 +1,14 @@
 #### Usage
 
 - Mount Google Drive on your computer
-- Create `Colab Notebooks` directory
-- Run the following commands in terminal
-```
-cd "~/Google Drive/Colab Notebooks"
-git clone https://github.com/polakowo/textai.git
-```
-- Run the [DataPreparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/DataPreparation.ipynb) in Google Colab
-- Choose a model and run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/text_generation/without-titles/DistilGPT-2/Training.ipynb) in Google Colab
-- Copy the generated `output` directory to the `app/app` directory
+- Create `Colab Notebooks` directory and clone the textai repo there
+
+In Google Colab,
+- Run the [Data Preparation notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/DataPreparation.ipynb)
+- Run the [Training notebook](https://nbviewer.jupyter.org/github/polakowo/textai/blob/master/MoviePlots/text_generation/without-titles/DistilGPT-2/Training.ipynb)
+
+Then locally,
+- Copy the generated `output` directory to the `app/app` directory (you can delete `models` subdir)
 - Run the following commands in terminal
 ```
 docker build -t text-generation .
