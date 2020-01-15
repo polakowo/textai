@@ -1,4 +1,4 @@
-#### App deployment
+#### Usage
 
 - Mount Google Drive on your computer
 - Create `Colab Notebooks` directory and clone the textai repo there
